@@ -44,6 +44,7 @@ class UserController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
     }
 
@@ -51,9 +52,11 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->searchFriendList(Yii::$app->request->queryParams);
+        $applyCount=Application::getApplicationCount();
         return $this->render('friend-list',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'applyCount'=>$applyCount,
         ]);
     }
 

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php // Html::a('添加好友', ['user/index'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . '添加好友',
             ['user/index'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-check"></span>'. "待审核",
+        <?= Html::a('<span class="glyphicon glyphicon-check"></span>'. "待审核($applyCount)",
             ['application/index'], ['class' => 'btn btn-success']) ?>
         <?php //echo Html::a('待审核',['application/index'],['class'=>'btn btn-success'])?>
     </p>
