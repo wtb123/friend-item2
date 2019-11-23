@@ -150,10 +150,12 @@ class AdminuserController extends Controller
         //step1.找出所有权限,提供给checkboxlist
         $allPrivileges=AuthItem::find()->select(['name','description'])
             ->where(['type'=>1])->orderBy('description')->all();
+
         foreach($allPrivileges as $pri)
         {
             $allPrivilegeArray[$pri->name]=$pri->description;
         }
+
 
         //step2.当前用户的权限
         $AuthAssignments=AuthAssignment::find()->select(['item_name'])
@@ -168,9 +170,11 @@ class AdminuserController extends Controller
         //step3.从表单提交的数据，来更新AuthAssignment表，从而用户的角色发生变化
         if(isset($_POST['newPri']))
         {
+
             AuthAssignment::deleteAll('user_id=:id',[':id'=>$id]);
             $newPri=$_POST['newPri'];
             $arrlength=count($newPri);
+
             for($x=0;$x<$arrlength;$x++)
             {
                 $aPri=new AuthAssignment();
@@ -180,6 +184,7 @@ class AdminuserController extends Controller
 
                 $aPri->save();
             }
+
             return $this->redirect(['index']);
         }
 

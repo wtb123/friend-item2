@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
+use common\models\Adminuser;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Adminuser */
 
-$this->title = '权限设置: ' . $id;
+$model=Adminuser::findone($id);
+$this->title = '权限设置: ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => '管理员', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $id, 'url' => ['view', 'id' => $id]];
 $this->params['breadcrumbs'][] = '权限设置';
