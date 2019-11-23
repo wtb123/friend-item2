@@ -63,7 +63,7 @@ class Friend extends \yii\db\ActiveRecord
     public function getComments()
     {
 
-       $queryResult=(new FriendSearch())->getFriendList();
+       $queryResult=FriendList::getFriendList();
        $comments=Comment::find()->where(['AND',['user_id'=>$queryResult],['friendcir_id'=>$this->id]])->all();
        return $comments;
        //return $this->hasMany(Comment::className(), ['friendcir_id' => 'id']);
