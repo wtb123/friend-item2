@@ -65,7 +65,7 @@ class Application extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'friend_id']);
     }
 
-    public function getApplicationCount()
+    public static function getApplicationCount()
     {
         return Application::find()->where(['user_id'=>Yii::$app->user->identity->id])->count();
     }

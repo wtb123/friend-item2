@@ -58,8 +58,8 @@ class FriendSearch extends Friend
         */
 
 
-        $queryResult=$this->getFriendList();
-        $query = Friend::find()->where(['user_id'=>$queryResult]);
+        $queryResult= FriendList::getFriendList();  //获取当前用户的好友数组
+        $query = Friend::find()->where(['user_id'=>$queryResult])->orderBy(['create_time'=>SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -89,7 +89,8 @@ class FriendSearch extends Friend
         return $dataProvider;
     }
 
-    public function searchMyPublish($params)
+    //查看自己发布的朋友圈，待开启
+  /*  public function searchMyPublish($params)
     {
         $query = Friend::find()->where(['user_id'=>Yii::$app->user->identity->id]);
         // add conditions that should always apply here
@@ -119,30 +120,7 @@ class FriendSearch extends Friend
 
         return $dataProvider;
     }
+    */
 
-    /**获取用户好友id数组，这个函数在Friend中也会用到
-     * @return array
-     */
-    public function getFriendList()
-    {
-        //更新，此处使用联合查询
-        $queryFriendId=(new \yii\db\Query())
-            ->select('friend_id')
-            ->from('friend_list')
-            ->where('user_id=:user_id')
-            ->addParams([':user_id'=>Yii::$app->user->identity->id]);
 
-        $queryUserId=(new \yii\db\Query())
-            ->select('user_id')
-            ->from('friend_list')
-            ->where('friend_id=:friend_id')
-            ->addParams([':friend_id'=>Yii::$app->user->identity->id]);
-
-        $queryResult=$queryFriendId->union($queryUserId,true)->all();
-        $queryResult=array_column($queryResult,'friend_id');
-
-        //如果新用户没有好友，也可以发布朋友圈，所以需要加上作者自己
-        $queryResult[]=Yii::$app->user->identity->id;
-        return $queryResult;
-    }
 }

@@ -75,6 +75,13 @@ class SiteController extends Controller
     public function actionIndex()
 
     {
+      /*  $fff=Yii::$app->mailer->compose()
+        ->setFrom(['1332101459@qq.com'=>'测试邮件'])
+        ->setTo('1332101459@qq.com')
+        ->setSubject('测试邮件')
+        ->setTextBody('测试邮件')
+        ->send();
+        exit(0);*/
         return $this->render('index');
     }
 

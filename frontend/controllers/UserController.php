@@ -7,6 +7,7 @@ use common\models\User;
 use common\models\UserSearch;
 use common\models\Application;
 use yii\helpers\Html;use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -117,8 +118,8 @@ class UserController extends Controller
        }
        else
        {
-
-           echo "申请失败"; //如何做一个弹框出来呢？（待补充）
+           //做一个报错弹框应该是更好的，待补充
+           throw new HttpException('503','申请失败');
        }
     }
     /**

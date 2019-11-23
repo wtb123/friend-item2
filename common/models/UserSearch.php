@@ -86,19 +86,20 @@ class UserSearch extends User
      */
     public function searchFriendList($params)
     {
-        $queryFriendList=(new FriendSearch())->getFriendList();
+
+        $queryFriendList=FriendList::getFriendList();
+
         //在好友列表中不用展现用户自己
         foreach ($queryFriendList as $key=>$value)
         {
             if($value==Yii::$app->user->identity->id)
                 unset($queryFriendList[$key]);
         }
-       // echo "<pre>";
-       // print_r($queryFriendList);
-        //exit(0);
+       /* echo "<pre>";
+        print_r($queryFriendList);
+        exit(0);*/
         $query = User::find()->where(['id'=>$queryFriendList]);
 
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -122,10 +123,10 @@ class UserSearch extends User
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+          //  ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+        //   ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token])
+        //    ->andFilterWhere(['like', 'verification_token', $this->verification_token])
             ->andFilterWhere([ 'phone_number'=>$this->phone_number]);
 
         return $dataProvider;

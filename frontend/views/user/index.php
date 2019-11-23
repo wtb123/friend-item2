@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'verification_token',
             'phone_number',
             ['class' => 'yii\grid\ActionColumn',
-              'template'=>'{view}{update}{delete}' ,
+              'template'=>'{view}{update}' ,
                 'buttons'=>[
                 'update'=>function($url,$model,$key)
                 {

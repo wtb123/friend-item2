@@ -6,6 +6,7 @@ use Yii;
 use common\models\Application;
 use common\models\ApplicationSearch;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 /**
@@ -80,26 +81,18 @@ class ApplicationController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionAddfriend($id)
     {
         $model = $this->findModel($id);
-        if(0)
+        if($model->addFriend())
         {
             return $this->redirect(['index']);
         }
         else
         {
-            echo '添加好友失败';//待修改，一应该弹出报错框
+            //弹出一个报错框，而不是转跳到报错页面可能会更好
+           throw new HttpException('503','添加好友失败');
         }
-       /* if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]); */
-
-
     }
 
     /**

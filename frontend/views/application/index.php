@@ -34,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
              'value'=>'friend.username',
             ],
             ['class' => 'yii\grid\ActionColumn',
-                'template'=>'{view}{update}{delete}',
+                'template'=>'{view}{addfriend}{delete}',
                 'buttons'=>[
-                    'update'=>function($url,$model,$key)
+                    'addfriend'=>function($url,$model,$key)
                     {
                         $options=[
                             'title'=>Yii::t('yii','添加'),

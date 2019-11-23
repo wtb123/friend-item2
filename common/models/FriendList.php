@@ -63,4 +63,33 @@ class FriendList extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'friend_id']);
     }
+
+    /**
+     * @return array
+     * 用来获取某个用户的所有好友数组
+     */
+    public static function getFriendList()
+    {
+        //更新，此处使用联合查询
+        $queryFriendId=(new \yii\db\Query())
+            ->select('friend_id')
+            ->from('friend_list')
+            ->where('user_id=:user_id')
+            ->addParams([':user_id'=>Yii::$app->user->identity->id]);
+
+        $queryUserId=(new \yii\db\Query())
+            ->select('user_id')
+            ->from('friend_list')
+            ->where('friend_id=:friend_id')
+            ->addParams([':friend_id'=>Yii::$app->user->identity->id]);
+
+        $queryResult=$queryFriendId->union($queryUserId,true)->all();
+        $queryResult=array_column($queryResult,'friend_id');
+
+        //如果新用户没有好友，也可以发布朋友圈，所以需要加上作者自己
+        $queryResult[]=Yii::$app->user->identity->id;
+        return $queryResult;
+    }
+
 }
+

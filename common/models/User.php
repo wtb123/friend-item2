@@ -224,16 +224,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function application()
     {
 
-        //如果已经申请过，则不必再给application表中插入数据
+
         $applicationModel=new Application();
         $exist=(new \yii\db\query)
              ->select('friend_id')
              ->from('application')
              ->where(['and',['user_id'=>$this->id],
-                      ['friend_id'=>100]])
+                      ['friend_id'=>Yii::$app->user->identity->id]])
              ->exists();
 
-        if(!$exist)
+
+        if($exist)   //如果已经申请过$exitst=true，则不必再给application表中插入数据
         {
             return true;
         }
@@ -241,8 +242,7 @@ class User extends ActiveRecord implements IdentityInterface
         {
             $applicationModel->user_id=$this->id;
             $applicationModel->friend_id=Yii::$app->user->identity->id;
-            $applicationModel->save();
-                return true;
+            return $applicationModel->save()? true:false;
         }
         return false;
     }
