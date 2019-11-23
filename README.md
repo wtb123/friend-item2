@@ -58,3 +58,19 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+这是一个基于yii2的低配版网页朋友圈。
+
+前台：
+
+发布朋友圈
+添加好友
+查看好友信息
+给朋友圈留言
+删除留言
+
+后台：
+内容管理(朋友圈、评论、前台用户)
+RBAC(基于角色的访问控制)
+创建后台用户、重置密码
+
+
